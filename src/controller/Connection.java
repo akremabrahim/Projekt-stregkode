@@ -1,12 +1,11 @@
-package connection;
+package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.ClientResponse;
-import sdk.HTTPrequests;
-import models.Login;
-import models.Book;
 import crypters.Crypter;
+import models.Login;
+import sdk.HTTPrequests;
 
 import java.awt.print.Book;
 import java.util.ArrayList;
@@ -18,6 +17,8 @@ public class Connection {
 
     public static String authorizeLogin(String username, String password) {
         Login login = new Login(username, password);
+
+
         ClientResponse clientResponse = HTTPrequests.post(null, "/user/login", new Gson().toJson(login));
         String token = null;
 
@@ -36,7 +37,7 @@ public class Connection {
 
     public static ArrayList<Book> getBooks() {
         ClientResponse clientResponse = HTTPrequests.get("book/");
-        ArrayList<Book> Books = null;
+        ArrayList<Book> books = null;
 
         if (clientResponse == null) {
             System.out.println("SDK not found");
@@ -67,7 +68,10 @@ public class Connection {
                 System.out.println("Server error! :-(");
             }
         }
-    return book;
+        return book;
 
     }
 }
+
+
+

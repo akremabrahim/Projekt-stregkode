@@ -15,6 +15,9 @@ public class Book {
     private String author;
     private int bookID;
 
+    public Book(){
+
+    }
 
     public Book(String title, int version, double ISBN, double priceAB, double priceSAXO, double priceCDON, String publisher, String author, int bookID) {
         this.title = title;
@@ -26,6 +29,17 @@ public class Book {
         this.publisher = publisher;
         this.author = author;
         this.bookID = bookID;
+    }
+
+    public Book(String title, int version, double ISBN, double priceAB, double priceSAXO, double priceCDON, String publisher, String author) {
+        this.title = title;
+        this.version = version;
+        this.ISBN = ISBN;
+        this.priceAB = priceAB;
+        this.priceSAXO = priceSAXO;
+        this.priceCDON = priceCDON;
+        this.publisher = publisher;
+        this.author = author;
     }
 
     public String getTitle() {
