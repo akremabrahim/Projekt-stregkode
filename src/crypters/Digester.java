@@ -1,9 +1,7 @@
-package sdk;
+package crypters;
 
 /**
  * Created by akrem_95 on 24/11/2016.
  */
-public class hh {
-
-    //gggg
+public class Digester {
 }
