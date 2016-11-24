@@ -3,8 +3,10 @@ package connection;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.ClientResponse;
-import models.Login;
 import sdk.HTTPrequests;
+import models.Login;
+import models.Book;
+import crypters.Crypter;
 
 import java.awt.print.Book;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 public class Connection {
 
     public static String authorizeLogin(String username, String password) {
-        Login login = new login(username, password);
+        Login login = new Login(username, password);
         ClientResponse clientResponse = HTTPrequests.post(null, "/user/login", new Gson().toJson(login));
         String token = null;
 
