@@ -1,4 +1,4 @@
-package controller;
+package sdk;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

@@ -12,7 +12,7 @@ public class Config {
 
     private static String serverUrl;
 
-    private static JsonObject initConfig(){
+    public static JsonObject initConfig(){
         JsonObject json = new JsonObject();
 
         try {

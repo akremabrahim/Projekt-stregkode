@@ -12,7 +12,9 @@ public class HTTPrequests {
     public static ClientResponse get (String path) { //????????? HVAD ER DET HER?????????
         ClientResponse clientResponse = null;
         try{
-            WebResource webResource = client.resource("http://localhost:8080/server2_0_war_exploded/").path(path);
+            WebResource webResource = client
+                    .resource("http://localhost:8080/server2_0_war_exploded/")
+                    .path(path);
             clientResponse = webResource.accept("application/json").get(ClientResponse.class);
         }
         catch
