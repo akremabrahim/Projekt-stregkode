@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.ClientResponse;
 import crypters.Crypter;
+import models.Curriculum;
 import models.Login;
-import sdk.HTTPrequests;
 
-import java.awt.print.Book;
+import models.Book;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +35,7 @@ public class Connection {
         return token;
     }
 
-    public static ArrayList<Book> getBooks() {
+    public static ArrayList<models.Book> getBooks() {
         ClientResponse clientResponse = HTTPrequests.get("book/");
         ArrayList<Book> books = null;
 
@@ -53,7 +53,8 @@ public class Connection {
         }
         return books;
     }
-    public static Book getBook (int id) {
+
+    public static models.Book getBook(int id) {
         ClientResponse clientResponse = HTTPrequests.get("book/" + id);
         Book book = null;
 
@@ -71,7 +72,46 @@ public class Connection {
         return book;
 
     }
-}
 
+    public static ArrayList<models.Curriculum> getCurriculums() {
+        ClientResponse clientResponse = HTTPrequests.get("curriculum/");
+        ArrayList<Curriculum> curriculums = null;
+
+        if (clientResponse == null) {
+            System.out.println("SDK not found");
+        } else {
+            String encryptedJson = clientResponse.getEntity(String.class);
+            if (clientResponse.getStatus() == 200) {
+                String decryptedJson = Crypter.encryptDecryptKKK(encryptedJson);
+                curriculums = new Gson().fromJson(decryptedJson, new TypeToken<ArrayList<Curriculum>>() {
+                }.getType());
+            } else {
+                System.out.println("Server error! :-(");
+            }
+        }
+        return curriculums;
+
+    }
+
+    public static models.Curriculum getCurriculum(int id) {
+        ClientResponse clientResponse = HTTPrequests.get("curriculum/" + id);
+        Curriculum curriculum = null;
+
+        if (clientResponse == null) {
+            System.out.println("SDK not found");
+        } else {
+            String encryptedJson = clientResponse.getEntity((String.class));
+            if (clientResponse.getStatus() == 200) {
+                String decryptedJson = Crypter.encryptDecryptKKK(encryptedJson);
+                curriculum = new Gson().fromJson(decryptedJson, Curriculum.class);
+            } else {
+                System.out.println("Server error! :-(");
+            }
+        }
+        return curriculum;
+
+    }
+
+}
 
 
