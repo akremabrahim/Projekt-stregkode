@@ -22,7 +22,7 @@ public class Controller {
     public void menu() {
 
         System.out.println("***** Velkommen til Book It! ***** " +
-                "\n Du har nu følgende muligheder: \n [1] Login \n [2] Opret bruger \n [3] Afslut session");
+                "\nDu har nu følgende muligheder: \n[1] Login \n[2] Opret bruger \n[3] Afslut session");
 
         switch (input.nextInt()) {
 
@@ -47,16 +47,16 @@ public class Controller {
         String password;
 
         System.out.println("Du har valgt login " +
-                "\n\n Indtast brugernavn: ");
+                "\n\nIndtast brugernavn:");
         username = input.nextLine();
         username = input.nextLine();
-        System.out.println("Indtast adgangskode: ");
+        System.out.println("Indtast adgangskode:");
         password = input.nextLine();
 
         String token = Connection.authorizeLogin(username, password);
         if(token != null){
-            System.out.println("Velkommen " + username +
-                    "\n Du har nu følgende muligheder: \n [1] Vis alle bøger \n [2] Vis bestemt bog \n [3] Hvis mulige studier og semestre \n [4] Log ud");
+            System.out.println("\nVelkommen " + username +
+                    "\nDu har nu følgende muligheder: \n[1] Vis alle bøger \n[2] Vis bestemt bog \n[3] Hvis mulige studier og semestre \n[4] Log ud");
 
             switch (input.nextInt()) {
                 case 1:
@@ -67,13 +67,12 @@ public class Controller {
                     userMenu();
                 case 3:
                     printCurriculums();
-                    // curriculumChoice();
                     break;
                 case 4:
                     menu();
                 default:
                     System.out.println("Indtast gyldig valgmulighed! \n");
-                    menu();
+                    userMenu();
                 }
 
             while(true);//Brug noget andet en true. CurrentUser != null
@@ -85,7 +84,7 @@ public class Controller {
 
         public void userMenu(){
 
-            System.out.println("\n \n Du har følgede valgmuligheder: \n [1] Vis alle bøger \n [2] Vis bestemt bog \n [3] Hvis mulige studier og semestre \n [4] Log ud");
+            System.out.println("\n \nDu har følgede valgmuligheder: \n[1] Vis alle bøger \n[2] Vis bestemt bog \n[3] Hvis mulige studier og semestre \n[4] Log ud");
 
             switch (input.nextInt()) {
                 case 1:
@@ -118,7 +117,9 @@ public class Controller {
     public void printBook() {
         System.out.println("Indast ID på den ønskede bog");
         Book book = Connection.getBook(input.nextInt());
-        System.out.println("ID: " + book.getBookID() + ", Titel: " + book.getTitle());
+        System.out.println("ID: " + book.getBookID() + ", \nTitel: " + book.getTitle()
+                + "\nPriser: \nAB: " + book.getPriceAB() + "\nCDON: " + book.getPriceCDON() + "\nSAXO: " + book.getPriceSAXO());
+        userMenu();
     }
 
     public void printCurriculums() {
@@ -126,27 +127,43 @@ public class Controller {
         System.out.println("Book It's uddanelsesregister: ");
         for (models.Curriculum curriculum : curriculums) {
             System.out.println("ID: " + curriculum.getCurriculumID() + ", Uddanelse: " + curriculum.getEducation() + ", Semester: " + curriculum.getSemester());
-
         }
-        printCurriculum();
-    }
-
-    public void printCurriculum() {
-        System.out.println("\nIndtast ID for det ønskede semester");
-        Curriculum curriculum = Connection.getCurriculum(input.nextInt());
-        System.out.println("\n Du har valgt følgende semester: " + curriculum.getSemester() + ", som indeholder følgende bøger: " + curriculum);
-    }
-/*
-
-    public void curriculumChoice() {
-        System.out.println("[0] Tilbage til brugermenu \n [Indtast ID for detaljer om bestemt semester]");
 
 
+        //do-/while-metode for søgning af bestemt semester
+        int chooseCurriculum;
+        do {
+
+            System.out.println("Indtast ID-nr. for detaljer");
+            while (!input.hasNextInt()) {
+                System.out.println("Tast gyldigt ID!");
+                input.next();
+            }
+
+            chooseCurriculum = input.nextInt();
         }
-*/
+        while (chooseCurriculum <= 0 || chooseCurriculum > curriculums.size());
+        ArrayList<Book> curriculumBooks = Connection.getCurriculumBooks(chooseCurriculum);
+        System.out.println("\nSemesterbøgerne:");
+
+        for (Book book : curriculumBooks) {
+            System.out.println("ID: " + book.getBookID() + ", Titel: " + book.getTitle() + " - ISBN: " + book.getISBN());
+        }
 
 
-
+        System.out.println("[1] Bogdetaljer [2] Tilbage til brugermenuen");
+            switch (input.nextInt()) {
+                case 1:
+                    printBook();
+                    break;
+                case 2:
+                    userMenu();
+                    break;
+                default:
+                    System.out.println("Ugyldigt input - du er derfor videresendt til brugermenuen");
+                    userMenu();
+        }
+    }
 
     public void createUser() {
 

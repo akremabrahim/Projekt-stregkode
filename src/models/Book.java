@@ -7,7 +7,7 @@ public class Book {
 
     private String title;
     private int version;
-    private double ISBN;
+    private long ISBN;
     private double priceAB;
     private double priceSAXO;
     private double priceCDON;
@@ -19,7 +19,7 @@ public class Book {
 
     }
 
-    public Book(String title, int version, double ISBN, double priceAB, double priceSAXO, double priceCDON, String publisher, String author, int bookID) {
+    public Book(String title, int version, long ISBN, double priceAB, double priceSAXO, double priceCDON, String publisher, String author, int bookID) {
         this.title = title;
         this.version = version;
         this.ISBN = ISBN;
@@ -31,7 +31,7 @@ public class Book {
         this.bookID = bookID;
     }
 
-    public Book(String title, int version, double ISBN, double priceAB, double priceSAXO, double priceCDON, String publisher, String author) {
+    public Book(String title, int version, long ISBN, double priceAB, double priceSAXO, double priceCDON, String publisher, String author) {
         this.title = title;
         this.version = version;
         this.ISBN = ISBN;
@@ -58,11 +58,11 @@ public class Book {
         this.version = version;
     }
 
-    public double getISBN() {
+    public long getISBN() {
         return ISBN;
     }
 
-    public void setISBN(double ISBN) {
+    public void setISBN(long ISBN) {
         this.ISBN = ISBN;
     }
 

@@ -93,25 +93,25 @@ public class Connection {
 
     }
 
-    public static models.Curriculum getCurriculum(int id) {
-        ClientResponse clientResponse = HTTPrequests.get("curriculum/" + id);
-        Curriculum curriculum = null;
+    public static ArrayList<Book> getCurriculumBooks(int curriculumId) {
+        ClientResponse clientResponse = HTTPrequests.get("/curriculum/" + curriculumId + "/books");
+        ArrayList<Book> books = null;
 
         if (clientResponse == null) {
             System.out.println("SDK not found");
         } else {
-            String encryptedJson = clientResponse.getEntity((String.class));
+            String encryptedJson = clientResponse.getEntity(String.class);
             if (clientResponse.getStatus() == 200) {
                 String decryptedJson = Crypter.encryptDecryptKKK(encryptedJson);
-                curriculum = new Gson().fromJson(decryptedJson, Curriculum.class);
+                books = new Gson().fromJson(decryptedJson, new TypeToken<ArrayList<Book>>() {
+                }.getType());
             } else {
                 System.out.println("Server error! :-(");
             }
         }
-        return curriculum;
+        return books;
 
     }
-
 }
 
 
