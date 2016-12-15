@@ -199,6 +199,18 @@ public class Controller {
 
     }
 
+    public void editUser() {
+
+        
+
+    }
+
+    public void deleteUser() {
+
+
+
+    }
+
 
 
 

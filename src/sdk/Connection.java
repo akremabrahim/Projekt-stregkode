@@ -119,7 +119,7 @@ public class Connection {
         return books;
 
     }
-
+    //HTTP POST
     public static String createUser(JsonObject info) {
         ClientResponse clientResponse = HTTPrequests.post("/user/", Crypter.encryptDecryptXOR(new Gson().toJson(info)));
         String response = null;
@@ -138,6 +138,14 @@ public class Connection {
         return response;
 
     }
+     //HTTP PUT
+    //public static String editUser (JsonObject info) {
+   // }
+
+      //public static String deleteUser (JsonObject info) {
+     //   System.out.println("hej");
+    // }
+
 }
 
 
