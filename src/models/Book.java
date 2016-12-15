@@ -2,6 +2,7 @@ package models;
 
 /**
  * Created by akrem_95 on 24/11/2016.
+ * Klasse for bog-objekter
  */
 public class Book {
 

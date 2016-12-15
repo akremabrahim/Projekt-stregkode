@@ -5,7 +5,7 @@ package crypters;
  */
 public class Crypter {
 
-    public static String encryptDecryptKKK(String input) {
+    public static String encryptDecryptXOR(String input) {
         char[] key = {'K', 'K', 'K'};
         StringBuilder output = new StringBuilder();
 

@@ -1,5 +1,7 @@
 package controller;
 
+import com.google.gson.JsonObject;
+import crypters.Digester;
 import models.Curriculum;
 import sdk.Connection;
 
@@ -10,6 +12,7 @@ import models.Book;
 
 /**
  * Created by akrem_95 on 24/11/2016.
+ * Præsentationslag + metoder
  */
 public class Controller {
 
@@ -48,7 +51,8 @@ public class Controller {
 
         System.out.println("Du har valgt login " +
                 "\n\nIndtast brugernavn:");
-        username = input.nextLine();
+        //username = input.nextLine();
+        input.nextLine();
         username = input.nextLine();
         System.out.println("Indtast adgangskode:");
         password = input.nextLine();
@@ -95,12 +99,11 @@ public class Controller {
                     userMenu();
                 case 3:
                     printCurriculums();
-
                 case 4:
                     menu();
                 default:
                     System.out.println("Indtast gyldig valgmulighed! \n");
-                    menu();
+                    userMenu();
 
 
             while(true);//Brug noget andet en true. CurrentUser != null
@@ -117,8 +120,7 @@ public class Controller {
     public void printBook() {
         System.out.println("Indast ID på den ønskede bog");
         Book book = Connection.getBook(input.nextInt());
-        System.out.println("ID: " + book.getBookID() + ", \nTitel: " + book.getTitle()
-                + "\nPriser: \nAB: " + book.getPriceAB() + "\nCDON: " + book.getPriceCDON() + "\nSAXO: " + book.getPriceSAXO());
+        System.out.println("\nTitel: " + book.getTitle() + "\nPriser: \nAB: " + book.getPriceAB() + "\nCDON: " + book.getPriceCDON() + "\nSAXO: " + book.getPriceSAXO());
         userMenu();
     }
 
@@ -167,9 +169,42 @@ public class Controller {
 
     public void createUser() {
 
+        System.out.println("Du har valgt at oprette ny bruger på BookIt, indtast venligst de følgende oplysninger:");
+
+        JsonObject info = new JsonObject();
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Fornavn: ");
+        info.addProperty("firstName", input.nextLine());
+
+        System.out.print("Efternavn: ");
+        info.addProperty("lastName", input.nextLine());
+
+        System.out.print("E-mail: ");
+        info.addProperty("email", input.nextLine());
+
+        System.out.print("Ønsket brugernavn: ");
+        info.addProperty("username", input.nextLine());
+
+        System.out.print("Ønsket password: ");
+        info.addProperty("password", Digester.hashWithSalt(input.nextLine()));
+
+        info.addProperty("userType", "0");
+
+        Connection.createUser(info);
+
+        System.out.println("Bruger oprettet. Log venligst ind");
+
+        logIn();
+
     }
 
+
+
+
     public void exitProgram() {
+
+
 
     }
 
